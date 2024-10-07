@@ -1,5 +1,9 @@
 {% extends "challenges/index.html" %}
 
+{% block title %}
+{{ month | capfirst }} Challenge
+{% endblock title %}
 {% block content %}
+  <h3>Month : {{ month | capfirst}}</h3>
   <div>Challenges are: {{ challenge }}</div>
 {% endblock %}

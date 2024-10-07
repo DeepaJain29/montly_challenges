@@ -18,7 +18,9 @@ challenges = {
     }
 
 def index(request):
-    return render(request,'challenges/index.html')
+    challenges_cap = {month: challenge for month, challenge in challenges.items()}
+    # return render(request,'challenges/index.html', {'challenges': challenges_cap})
+    return render(request,'challenges/index.html', {'challenges': challenges})
 
 def month_by_int(request, month=1):
     month = int(month)-1
@@ -35,6 +37,6 @@ def month(request, month=None):
     month = month.lower()
     challenge_text = challenges.get(month, None)
     if challenge_text:
-        return render(request, 'challenges/month.html', {'challenge': challenge_text})
+        return render(request, 'challenges/month.html', {'challenge': challenge_text, 'month': month})
     else:
         return HttpResponse(f"Invalid month: {month.capitalize()}. Please enter a valid month.", status=404)
