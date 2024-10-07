@@ -1,12 +1,8 @@
-from django.shortcuts import render, HttpResponse
-
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.urls import reverse
 # Create your views here.
-def index(request):
-    return render(request,'challenges/index.html')
-    # return HttpResponse("hola!")
 
-def month(request, month=None):
-    challenges = {
+challenges = {
         'january': 'Learn Django basics: models, views, templates.',
         'february': 'Deep dive into Django ORM and database relationships.',
         'march': 'Master Django forms and validation.',
@@ -20,6 +16,22 @@ def month(request, month=None):
         'november': 'Learn Django testing with pytest and Django’s test framework.',
         'december': 'Build a full-fledged project using everything learned in Django.'
     }
+
+def index(request):
+    return render(request,'challenges/index.html')
+
+def month_by_int(request, month=1):
+    month = int(month)-1
+    challenges_keys = list(challenges.keys())
+    print(len(challenges_keys))
+    if month >= 0 and month < len(challenges_keys):
+        month_name = challenges_keys[month]
+        print(month_name)
+        return HttpResponseRedirect(reverse('month', args=[month_name]))
+    else:
+        return HttpResponse(f"Invalid month. Please enter a valid month.", status=404)
+    
+def month(request, month=None):
     month = month.lower()
     challenge_text = challenges.get(month, None)
     if challenge_text:
