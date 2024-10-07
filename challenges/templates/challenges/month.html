@@ -1,9 +1,16 @@
-{% extends "challenges/index.html" %}
 
+{% extends "base.html" %}
+{% comment %} {% extends "challenges/index.html" %} {% endcomment %}
 {% block title %}
 {{ month | capfirst }} Challenge
 {% endblock title %}
 {% block content %}
+{% include "challenges/includes/headers.html" %}
   <h3>Month : {{ month | capfirst}}</h3>
-  <div>Challenges are: {{ challenge }}</div>
+  {% if not challenge %}
+    <div>There is no challenge for {{ month | capfirst}}!</div>
+  {% else %}
+    <div>Challenges are: {{ challenge }}</div>
+  {% endif %}
+
 {% endblock %}

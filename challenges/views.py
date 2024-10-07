@@ -14,13 +14,17 @@ challenges = {
         'september': 'Implement real-time features using Django channels.',
         'october': 'Optimize Django applications for performance and security.',
         'november': 'Learn Django testing with pytest and Django’s test framework.',
-        'december': 'Build a full-fledged project using everything learned in Django.'
+        'december': 'Build a full-fledged project using everything learned in Django.',
+        'hola' : None,
     }
 
 def index(request):
-    challenges_cap = {month: challenge for month, challenge in challenges.items()}
+    # challenges_cap = {month: challenge for month, challenge in challenges.items()}
     # return render(request,'challenges/index.html', {'challenges': challenges_cap})
-    return render(request,'challenges/index.html', {'challenges': challenges})
+    # return render(request,'challenges/index.html', {'challenges': challenges})
+    months = list(challenges.keys())
+    return render(request,'challenges/index.html', {'months': months})
+
 
 def month_by_int(request, month=1):
     month = int(month)-1
@@ -35,8 +39,14 @@ def month_by_int(request, month=1):
     
 def month(request, month=None):
     month = month.lower()
-    challenge_text = challenges.get(month, None)
-    if challenge_text:
-        return render(request, 'challenges/month.html', {'challenge': challenge_text, 'month': month})
-    else:
+    challenge_text = challenges.get(month, "not_found")
+    print(challenge_text)
+    if challenge_text == "not_found":
         return HttpResponse(f"Invalid month: {month.capitalize()}. Please enter a valid month.", status=404)
+    return render(request, 'challenges/month.html', {'challenge': challenge_text, 'month': month})
+    # if challenge_text:
+    # try:
+    #     return render(request, 'challenges/month.html', {'challenge': challenge_text, 'month': month})
+    # # else:
+    # except:
+    #     return HttpResponse(f"Invalid month: {month.capitalize()}. Please enter a valid month.", status=404)
