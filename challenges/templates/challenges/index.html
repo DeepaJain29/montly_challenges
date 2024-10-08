@@ -1,25 +1,27 @@
 {% extends "base.html" %}
+{% load static %}
 
+<link rel="stylesheet" href="{% static 'style.css' %}">
 
-{% include "challenges/includes/headers.html" %}
-        {% block content %}
+{% block content %}
+    <div class="d-flex justify-content-center align-items-center min-vh-100">
+        <div class="text-center p-4 small-box">
+            <h2 class="mb-4">Select a Month:</h2>
+            {% comment %} <ul class="list-group">
+                        {% for mon in challenges.keys %}
+                            <li class="list-group-item">
+                                <a href="{% url 'month' mon %}">{{ mon | capfirst }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul> {% endcomment %}
 
-        <h2>Select a Month:</h2>
-        {% comment %} <ul class="list-group">
-            {% for mon in challenges.keys %}
-                <li class="list-group-item">
-                    <a href="{% url 'month' mon %}">{{ mon | capfirst }}</a>
-                </li>
-            {% endfor %}
-        </ul> {% endcomment %}
-
-        <ul class="list-group">
-            {% for mon in months %}
-                <li class="list-group-item">
-                    <a href="{% url 'month' mon %}">{{ mon | capfirst }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-
-        {% endblock %}
-        
+            <ul class="list-group">
+                {% for mon in months %}
+                    <li class="list-group-item">
+                        <a href="{% url 'month' mon %}" class="month-link">{{ mon | capfirst }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+{% endblock %}

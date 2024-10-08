@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, HttpResponseRedirect
+from django.shortcuts import render, HttpResponse, HttpResponseRedirect, Http404
 from django.urls import reverse
 # Create your views here.
 
@@ -42,7 +42,9 @@ def month(request, month=None):
     challenge_text = challenges.get(month, "not_found")
     print(challenge_text)
     if challenge_text == "not_found":
-        return HttpResponse(f"Invalid month: {month.capitalize()}. Please enter a valid month.", status=404)
+        # return HttpResponse(f"Invalid month: {month.capitalize()}. Please enter a valid month.", status=404)
+        raise Http404()
+
     return render(request, 'challenges/month.html', {'challenge': challenge_text, 'month': month})
     # if challenge_text:
     # try:

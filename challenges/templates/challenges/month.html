@@ -1,16 +1,17 @@
-
 {% extends "base.html" %}
-{% comment %} {% extends "challenges/index.html" %} {% endcomment %}
 {% block title %}
 {{ month | capfirst }} Challenge
 {% endblock title %}
 {% block content %}
 {% include "challenges/includes/headers.html" %}
-  <h3>Month : {{ month | capfirst}}</h3>
-  {% if not challenge %}
-    <div>There is no challenge for {{ month | capfirst}}!</div>
-  {% else %}
-    <div>Challenges are: {{ challenge }}</div>
-  {% endif %}
 
+<div class="d-flex flex-column justify-content-center align-items-center my-5">
+    <h3 class="mb-4">{{ month | capfirst }}</h3> <!-- Added margin-bottom for space -->
+    
+    {% if not challenge %}
+        <div class="text-center">There is no challenge for {{ month | capfirst }}!</div>
+    {% else %}
+        <div class="text-center">{{ challenge }}</div>
+    {% endif %}
+</div>
 {% endblock %}
